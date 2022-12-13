@@ -1,0 +1,199 @@
+*, * ::after, *::before{
+  box-sizing: border-box;
+  font-family: 'Franklin Gothic Medium', sans-serif;
+}
+
+body{
+  background-color: rgb(26, 99, 99) ;
+  margin: 0;
+}
+.title{
+  margin-bottom:15px;
+  height: 60px;
+  background-color:coral;
+  position: relative;
+  border: outset;
+  border-color:black;
+  border-width: 3px;
+  font-size: 20px;
+}
+
+h1{
+  margin: 0;
+  padding-top: 5px;
+  text-align: center;
+}
+
+input{
+  position:absolute;
+  /* display: inline-block; */
+  margin-left: 620px;
+  width: 300px;
+  height: 40px;
+  font-size:25px ;
+  font-weight: bolder;
+  border-radius: 10px;
+  text-align: center;
+  color: rgb(9, 22, 209);
+}
+
+input.grade{
+  top:115px;
+}
+input.duration{
+  top:155px
+}
+
+label{
+  position: absolute;
+  /* display: inline-block; */
+  margin-left: 450px;
+  text-align:left;
+  font-size: 25px;
+  color: aliceblue;
+}
+
+
+.subject{
+  top:80px;
+  margin-right:65px;
+}
+.grade{
+  top:120px;
+  margin-right:80px;
+}
+
+.duration{
+  top:158px;
+  margin-right:80px;
+}
+
+  
+.counter{
+  display: inline-block;
+  position:absolute;
+  width: 800px;
+  height: 260px;
+  left: 360px;
+  top:260px;
+  border-radius:20px;
+  text-align: center;
+  padding-top: 90px;
+  font-size:100px;
+  font-weight: bolder;
+  background-color: rgba(231, 218, 226, 0.95);
+}
+
+.digitalclock{
+  position:absolute;
+  width: 200px;
+  height: 60px;
+  top:160px;
+  left:100px;
+  border-radius:10px;
+  background-color: rgba(231, 218, 226, 0.95);
+  border:2px solid black;
+  
+}
+
+#digiclock{
+  color: rgb(7, 15, 172);
+  text-align: center;
+  padding-top:5px;
+  font-size: 40px;
+  font-weight:900;
+}
+
+
+.button-start{
+  position:absolute;
+  width:80px;
+  height: 40px;
+  top:535px;
+  left: 960px;
+  border-radius: 15px;
+  border:2px solid black;
+  font-size: 20px;
+  bottom: 60px;
+  background-color: rgb(56, 197, 9);
+  cursor: pointer;
+}
+
+.button-stop{
+  position:absolute;
+  width:80px;
+  height: 40px;
+  top:535px;
+  left:1050px;
+  border-radius: 15px;
+  border:2px solid black;
+  font-size: 20px;
+  bottom: 60px;
+  background-color: rgb(225, 88, 118);
+  cursor: pointer;
+}
+
+.button-set{
+  position:absolute;
+  width:80px;
+  height: 40px;
+  top:155px;
+  left:925px;
+  border-radius: 15px;
+  border:2px solid black;
+  font-size: 20px;
+  bottom: 375px;
+  background-color: rgb(197, 157, 40);
+  cursor: pointer;
+}
+.owner-label{
+  position: absolute;
+  top:650px;
+  left:540px;
+  font-size: 15px;
+  font-weight: bolder;
+  text-align: center;
+  color: rgba(247, 244, 244, 0.925);
+}
+
+
+
+.time-remain{
+  position: absolute;
+  top:-10px;
+  right:-280px;
+  font-size: 30px;
+  color: aliceblue;
+}
+
+.day{
+  position: absolute;
+  top:80px;
+  left:100px;
+  font-size: 25px;
+  color: aliceblue;
+  
+}
+.current-date{
+  position: absolute;
+  top:120px;
+  left:100px;
+  font-size: 25px;
+  color: white;
+  
+}
+
+.remaining-time{
+  display: inline-block;
+  position: absolute;
+  top:285px;
+  left:600px;
+  font-size:35px;
+  font-style: italic;
+  font-weight: bolder;
+  color: rgb(172, 7, 7);
+  /* background-color: aliceblue; */
+  padding-right: 10px;
+  z-index: 4;
+}
+

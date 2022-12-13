@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exam Timer</title>
+</head>
+<body>
+  <div class="title">
+    <h1>Exam Timer</h1>
+  </div>
+   <div class="day" id="day"></div>
+   <div class="current-date" id="current-date">date</div>
+   <div class="remaining-time">Time Remaining</div>
+
+   <div class="user-input"> 
+     <div> 
+      <label class="subject">Subject:</label>
+      <input type="text">
+    </div>
+     <div>
+      <label class="grade">Grade:</label>
+      <input class="grade" type="text">
+     </div>
+     <div>
+      <label class="duration">Duration(min):</label>
+      <input class="duration" id= "duration" type="number">
+      <button onclick="setDuration()" id="setBtn" class="button-set">Set</button>
+     </div>
+  </div>
+  <div class="clock"> 
+    
+    <div class="counter" id="counter"></div>
+    <div class="owner-label">Version1.2: Applied Engineering Dept, TBMEC</div>
+   
+ 
+    <div id="digiclock" class="digitalclock"></div>
+  
+    <div>
+      <button onclick="setStart()" id="startBtn" class="button-start">Start</button>
+    </div>
+    <div>
+      <button onclick="setStop()" id="stopBtn" class="button-stop">Stop</button>
+    </div>
+   
+  </div>
+ 
+
+  <script src="script.js">
+    
+  </script>
+</body>
+</html>
