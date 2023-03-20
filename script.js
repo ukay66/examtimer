@@ -31,9 +31,12 @@ function setStop()
 }
 function setStart()
 {
-  start=true;
-  reset=false;
-  start_clock = Date.now();
+   if(!start)
+  {
+    start_clock = Date.now();
+    start = true;
+    reset =false;
+  }
 
 }
 
