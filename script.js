@@ -116,4 +116,3 @@ document.getElementById("digiclock").innerContent=t;
 showTime();
 setInterval(showTime,1000);
 
-
