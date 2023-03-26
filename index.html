@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +27,7 @@
      </div>
      <div>
       <label class="duration">Duration(min):</label>
-      <input class="duration" id= "duration" type="number" min="0">
+      <input class="duration" id= "duration" type="number">
       <button onclick="setDuration()" id="setBtn" class="button-set">Set</button>
      </div>
   </div>
@@ -42,9 +43,12 @@
       <button onclick="setStart()" id="startBtn" class="button-start">Start</button>
     </div>
     <div>
-      <button onclick="setStop()" id="stopBtn" class="button-stop">Reset</button>
+      <button onclick="setReset()" id="stopBtn" class="button-stop">Reset</button>
     </div>
    
+    <div>
+      <button onclick="setPause()" id="pauseBtn" class="button-pause">Pause</button>
+    </div>
   </div>
  
 
