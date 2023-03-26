@@ -109,13 +109,13 @@ label{
   position:absolute;
   width:80px;
   height: 40px;
-  top:535px;
-  left: 960px;
+  top:545px;
+  left: 860px;
   border-radius: 15px;
   border:2px solid black;
   font-size: 20px;
   bottom: 60px;
-  background-color: rgb(56, 197, 9);
+  background-color: #C0C0C0;
   cursor: pointer;
 }
 
@@ -123,16 +123,28 @@ label{
   position:absolute;
   width:80px;
   height: 40px;
-  top:535px;
+  top:545px;
   left:1050px;
   border-radius: 15px;
   border:2px solid black;
   font-size: 20px;
   bottom: 60px;
-  background-color: rgb(225, 88, 118);
+  background-color: #C0C0C0;
   cursor: pointer;
 }
-
+.button-pause{
+  position:absolute;
+  width:80px;
+  height: 40px;
+  top:545px;
+  left:955px;
+  border-radius: 15px;
+  border:2px solid black;
+  font-size: 20px;
+  bottom: 60px;
+  background-color: #C0C0C0;
+  cursor: pointer;
+}
 .button-set{
   position:absolute;
   width:80px;
@@ -143,13 +155,13 @@ label{
   border:2px solid black;
   font-size: 20px;
   bottom: 375px;
-  background-color: rgb(197, 157, 40);
+  background-color: #C0C0C0;
   cursor: pointer;
 }
 .owner-label{
   position: absolute;
   top:650px;
-  left:590px;
+  left:640px;
   font-size: 15px;
   font-weight: bolder;
   text-align: center;
@@ -196,4 +208,5 @@ label{
   padding-right: 10px;
   z-index: 4;
 }
+
 
