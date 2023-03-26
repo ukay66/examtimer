@@ -5,6 +5,9 @@ let reset =false;
 let start=false;
 let duration=0;
 let start_clock=0;
+var pause =false;
+var time_paused=0;
+var time_elapsed=0;
 
 
 function setDuration()
@@ -16,30 +19,56 @@ function setDuration()
   //duration in seconds
   duration=Math.round(duration*60);
   if(duration<0) {duration=0; return;}
+  time_paused=0;
   new_delta = duration;
+  
   display();
   start=false;
   
+  
 }
 
-function setStop()
+function setReset()
 {
   reset=true;
-  start=false;
+  start =false;
+  pause=false;
   new_delta = 0;
   display();
 }
+
 function setStart()
 {
-   if(!start)
+  
+  if(!start)
   {
-    start_clock = Date.now();
+    
+    if(pause)
+    start_clock = Date.now() - time_paused;
+    else 
+    start_clock =Date.now();
+
     start = true;
     reset =false;
+    pause = false;
+  
+    
   }
-
+  
 }
 
+function setPause()
+{
+    if(!start) return;
+    //if(!pause)
+    
+      time_paused = delta;
+      pause =true;
+      start =false;
+      
+      
+    
+}
 
 function upDateCounter()
 {
@@ -50,16 +79,17 @@ if (duration<=0 || duration=='')
     return; 
   }
 
- if(!start)
+if(!start)
   return;
-
 if(start)
 {
-delta = Date.now() - start_clock;
-new_delta = duration -delta/1000;
+
+delta = Date.now()- start_clock;
+new_delta = duration-delta/1000  ; 
 if(new_delta<0) return;
 display();
 }
+
 if (reset)
 {
   new_delta = 0;
@@ -67,7 +97,7 @@ if (reset)
 }
 
 }
-
+id = setInterval(upDateCounter,1);
 function display()
 {
   
@@ -81,7 +111,7 @@ function display()
   counterEl.innerHTML=countdown;
 
 }
-setInterval(upDateCounter,1000);
+
 
 function showTime()
 {
@@ -118,4 +148,5 @@ document.getElementById("digiclock").innerContent=t;
 
 showTime();
 setInterval(showTime,1000);
+
 
