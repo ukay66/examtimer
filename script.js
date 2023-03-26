@@ -97,7 +97,7 @@ if (reset)
 }
 
 }
-id = setInterval(upDateCounter,1);
+id = setInterval(upDateCounter,20);
 function display()
 {
   
