@@ -9,6 +9,16 @@ var pause =false;
 var time_paused=0;
 var time_elapsed=0;
 
+function toggleFullscreen() {
+  var elem = document.documentElement;
+  if (!document.fullscreenElement) {
+    elem.requestFullscreen().catch(err => {
+      console.log(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+    });
+  } else {
+    document.exitFullscreen();
+  }
+}
 
 function setDuration()
 {
