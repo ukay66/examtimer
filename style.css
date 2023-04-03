@@ -24,6 +24,16 @@ h1{
   text-align: center;
 }
 
+school-logo{
+  position: absolute;
+  width: 120px;
+  height: 74px;
+  top:80px;
+  right:30px;
+  border-radius:5%;
+  background-image: url(athslogo.svg);
+}
+
 input{
   position:absolute;
   /* display: inline-block; */
