@@ -23,8 +23,8 @@ body{
   width: 64px;
   height: 64px;
   background-image: url('.images/newfullscreen.svg');
-  bottom: 60px;
-  right: 60px;
+  bottom:30px;
+  right: 30px;
   cursor: pointer;
 }
 
