@@ -22,7 +22,7 @@ body{
   position: fixed;
   width: 64px;
   height: 64px;
-  background-image: url('.images/fullscreen6464.png');
+  background-image: url('.images/newfullscreen.svg');
   bottom: 80px;
   right: 80px;
   cursor: pointer;
