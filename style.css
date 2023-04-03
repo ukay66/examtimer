@@ -18,7 +18,7 @@ body{
   font-size: 20px;
 }
 
-img.fullscreen-icon {
+.fullscreenicon {
   position: fixed;
   width: 64px;
   height: 64px;
@@ -28,7 +28,7 @@ img.fullscreen-icon {
   cursor: pointer;
 }
 
-img{
+.schoollogo{
   position: absolute;
   width: 120px;
   height: 74px;
