@@ -1,9 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <link rel="stylesheet" href="style.css">
-  
+   <!-- <link rel="fullscreen-icon" href="fullscreen6464.png"> -->
+ 
+   <!-- <link rel="school-logo" href="athslogo.svg"> -->
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,10 +12,15 @@
 </head>
 <body>
   <div class="title">
-    <h1>EXAM TIMER</h1>
+    <h1>ATHS EXAM TIMER</h1>
+  </div>
+  <div class="fullscreen-icon" onclick="toggleFullscreen()">
+  </div>
+  <img src="fullscreen6464.png" alt="image">
   </div>
   <div class="school-logo" >
-   <img src="./images/athslogo.svg" alt="image"></div>
+    <img src="athslogo.svg" alt="image">
+  </div>
    <div class="day" id="day"></div>
    <div class="current-date" id="current-date">date</div>
    <div class="remaining-time">Time Remaining</div>
@@ -22,7 +28,7 @@
    <div class="user-input"> 
      <div> 
       <label class="subject">Subject:</label>
-      <input type="text">
+      <input class="subject" type="text">
     </div>
      <div>
       <label class="grade">Grade:</label>
@@ -52,6 +58,10 @@
     <div>
       <button onclick="setPause()" id="pauseBtn" class="button-pause">Pause</button>
     </div>
+
+    <!-- <div>
+      <button onclick="openFullscreen()" id="fullBtn" class="button-fullscreen">Fullscreen</button>
+    </div> -->
   </div>
  
 
