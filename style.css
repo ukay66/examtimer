@@ -19,7 +19,7 @@ body{
 }
 
 .fullscreenicon {
-  position: fixed;
+  position: absolute;
   width: 64px;
   height: 64px;
   background-image: url('.images/newfullscreen.svg');
@@ -183,7 +183,7 @@ label{
   cursor: pointer;
 }
 .owner-label{
-  position: fixed;
+  position: absolute;
   bottom: 80px;
   right: 550px;
   font-size: 15px;
