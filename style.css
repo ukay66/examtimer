@@ -1,237 +1,232 @@
 *, * ::after, *::before{
   box-sizing: border-box;
   font-family: 'Franklin Gothic Medium', sans-serif;
+  margin:0px;
 }
 
 body{
   background-color: rgb(26, 99, 99) ;
-  margin: 0;
+  margin:0px;
 }
 .title{
   margin-bottom:15px;
+  width:100%;
   height: 60px;
   background-color:coral;
-  position: relative;
   border: outset;
   border-color:black;
   border-width: 3px;
-  font-size: 20px;
+  font-size: 1.25rem;
+  text-align: center;
+  margin-bottom: 0;
+  padding: 0.5%;
 }
+
+
+.currentdate
+{
+  width: 300px;
+  height: 200px;
+  position: relative;
+  margin-top: 0;
+}
+
+.day
+{
+    position: relative;
+    top:30px;
+    left:30px;
+    font-size:1.6rem;
+    color: white;
+  }
+.date{
+    position: relative;
+    top:40px;
+    left:30px;
+    font-size:1.6rem;
+    color: white;
+  }
+  .digitalclock{
+    position:relative;
+    width: 200px;
+    height: 60px;
+    top:50px;
+    left:30px;
+    border-radius:10px;
+    background-color: rgba(231, 218, 226, 0.95);
+    border:2px solid black;
+  }
+
+  #digiclock
+  {
+    position:relative;
+    color: rgb(7, 15, 172);
+    text-align: center;
+    padding-top:5px;
+    font-size:2.5rem;
+    font-weight:900;
+  }
+
+  .user-input
+  {
+      width: 600px;
+      height: 150px;
+      position: relative;
+      top:-160px;
+      left:425px;
+      
+    }
+  
+  label{
+    position: relative;
+    left: 30px;
+    text-align:left;
+    font-size: 1.6rem;
+    color: aliceblue;
+  }
+  
+  .subject{
+    top:10px;
+  }
+  .grade{
+    top:20px;
+  }
+  .duration{
+    top:30px;
+  }
+
+  input{
+    position:relative;
+    left: 205px;
+    top:-80px;
+    width: 300px;
+    height: 40px;
+    font-size:1.8rem ;
+    font-weight: bolder;
+    border-radius: 10px;
+    text-align: center;
+    color: rgb(9, 22, 209);
+  }
+  .button-set{
+    position:relative;
+    width:80px;
+    height: 40px;
+    top:-120px;
+    left:510px;
+    border-radius: 15px;
+    border:2px solid black;
+    font-size:1.25rem;
+    background-color: #C0C0C0;
+    cursor: pointer;
+  }
+  .schoollogo
+  {
+    position: relative;
+    width: 180px;
+    height: 110px;
+    top:-255px;
+    left:750px;
+    border-radius:5%;
+    background-image: url('athslogo.svg');
+  }
+
+  .clock{
+    position:relative;
+    width: 850px;
+    height: 250px;
+    left:-120px;
+    top:-165px;
+    border-radius:20px;
+    text-align: center;
+    padding-top: 90px;
+    font-size:6.875rem;
+    font-weight: bolder;
+    background-color: rgba(245, 240, 243, 0.95);
+  }
+
+  #counter
+  {
+    position: relative;
+    top:-50px;
+  }
+
+  .remaining-time
+  {
+    position: relative;
+    top:-65px;
+    left:0px;
+    font-size:2.8125rem;
+    font-style: italic;
+    font-weight: bolder;
+    color: rgb(172, 7, 7);
+    padding-right: 10px;
+    z-index: 4;
+  }
+  .button-start{
+    position:relative;
+    width:80px;
+    height: 40px;
+    top:-70px;
+    left: 250px;
+    border-radius: 15px;
+    border:2px solid black;
+    font-size:1.25rem;
+    background-color: #C0C0C0;
+    cursor: pointer;
+  }
+  .button-pause{
+    position:relative;
+    width:80px;
+    height: 40px;
+    top:-70px;
+    left:230px;
+    border-radius: 15px;
+    border:2px solid black;
+    font-size:1.25rem;
+    background-color: #C0C0C0;
+    cursor: pointer;
+  }
+  
+  .button-stop{
+    position:relative;
+    width:80px;
+    height: 40px;
+    top:-70px;
+    left:210px;
+    border-radius: 15px;
+    border:2px solid black;
+    font-size:1.25rem;
+    background-color: #C0C0C0;
+    cursor: pointer;
+  }
 
 .fullscreenicon {
-  position: absolute;
+  position: relative;
   width: 64px;
   height: 64px;
-  background-image: url('.images/newfullscreen.svg');
-  bottom:40px;
-  right: 60px;
+  background-image: url('newfullscreen.svg');
+  Top:-100px;
+  left:800px;
   cursor: pointer;
 }
 
-.schoollogo{
-  position: absolute;
-  width: 120px;
-  height: 74px;
-  top:80px;
-  right:30px;
-  border-radius:5%;
-  background-image: url('.images/athslogo.svg');
-}
-
-h1{
-  margin: 0;
-  padding-top: 5px;
-  text-align: center;
-}
-
-input{
-  position:absolute;
-  /* display: inline-block; */
-  margin-left: 620px;
-  width: 300px;
-  height: 40px;
-  font-size:25px ;
-  font-weight: bolder;
-  border-radius: 10px;
-  text-align: center;
-  color: rgb(9, 22, 209);
-}
-
-input.subject{
-  top:95px;
-}
-input.grade{
-  top:135px;
-}
-input.duration{
-  top:175px
-}
-
-label{
-  position: absolute;
-  /* display: inline-block; */
-  margin-left: 450px;
-  text-align:left;
-  font-size: 25px;
-  color: aliceblue;
-}
-
-
-.subject{
-  top:100px;
-  margin-right:65px;
-}
-.grade{
-  top:138px;
-  margin-right:80px;
-}
-
-.duration{
-  top:178px;
-  margin-right:80px;
-}
-
-  
-.counter{
-  display: inline-block;
-  position:absolute;
-  width: 850px;
-  height: 250px;
-  left: 360px;
-  top:290px;
-  border-radius:20px;
-  text-align: center;
-  padding-top: 90px;
-  font-size:110px;
-  font-weight: bolder;
-  background-color: rgba(231, 218, 226, 0.95);
-}
-
-.digitalclock{
-  position:absolute;
-  width: 200px;
-  height: 60px;
-  top:160px;
-  left:100px;
-  border-radius:10px;
-  background-color: rgba(231, 218, 226, 0.95);
-  border:2px solid black;
-  
-}
-
-#digiclock{
-  color: rgb(7, 15, 172);
-  text-align: center;
-  padding-top:5px;
-  font-size: 40px;
-  font-weight:900;
-}
-
-
-.button-start{
-  position:absolute;
-  width:80px;
-  height: 40px;
-  top:565px;
-  left: 900px;
-  border-radius: 15px;
-  border:2px solid black;
-  font-size: 20px;
-  bottom: 60px;
-  background-color: #C0C0C0;
-  cursor: pointer;
-}
-
-.button-stop{
-  position:absolute;
-  width:80px;
-  height: 40px;
-  top:565px;
-  left:1090px;
-  border-radius: 15px;
-  border:2px solid black;
-  font-size: 20px;
-  bottom: 60px;
-  background-color: #C0C0C0;
-  cursor: pointer;
-}
-.button-pause{
-  position:absolute;
-  width:80px;
-  height: 40px;
-  top:565px;
-  left:995px;
-  border-radius: 15px;
-  border:2px solid black;
-  font-size: 20px;
-  bottom: 60px;
-  background-color: #C0C0C0;
-  cursor: pointer;
-}
-
-.button-set{
-  position:absolute;
-  width:80px;
-  height: 40px;
-  top:178px;
-  left:925px;
-  border-radius: 15px;
-  border:2px solid black;
-  font-size: 20px;
-  bottom: 375px;
-  background-color: #C0C0C0;
-  cursor: pointer;
-}
 .owner-label{
-  position: absolute;
-  bottom: 80px;
-  right: 550px;
-  font-size: 15px;
+  position: relative;
+  top: -120px;
+  left: 20px;
+  font-size:1rem;
   font-weight: bolder;
   text-align: center;
   color: rgba(247, 244, 244, 0.925);
 }
 
 
-/*
-.time-remain{
-  position: absolute;
-  top:-10px;
-  right:-280px;
-  font-size: 65px;
-  color: aliceblue;
-}
-*/
-.day{
-  position: absolute;
-  top:80px;
-  left:100px;
-  font-size: 25px;
-  color: aliceblue;
-  
-}
-.current-date{
-  position: absolute;
-  top:120px;
-  left:100px;
-  font-size: 25px;
-  color: white;
-  
-}
 
-.remaining-time{
-  display: inline-block;
-  position: absolute;
-  top:315px;
-  left:600px;
-  font-size:45px;
-  font-style: italic;
-  font-weight: bolder;
-  color: rgb(172, 7, 7);
-  /* background-color: aliceblue; */
-  padding-right: 10px;
-  z-index: 4;
-}
+
+
+
+
+
 
 
 
