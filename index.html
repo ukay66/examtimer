@@ -1,222 +1,62 @@
-*, * ::after, *::before{
-  box-sizing: border-box;
-  font-family: 'Franklin Gothic Medium', sans-serif;
-  margin:0px;
-}
-
-body{
-  background-color: rgb(26, 99, 99) ;
-  margin:0px;
-}
-.title{
-  margin-bottom:15px;
-  width:100%;
-  height: 60px;
-  background-color:coral;
-  border: outset;
-  border-color:black;
-  border-width: 3px;
-  font-size: 1.25rem;
-  text-align: center;
-  margin-bottom: 0;
-  padding: 0.5%;
-}
-
-
-.currentdate
-{
-  width: 300px;
-  height: 200px;
-  position: relative;
-  margin-top: 0;
-}
-
-.day
-{
-    position: relative;
-    top:30px;
-    left:30px;
-    font-size:1.6rem;
-    color: white;
-  }
-.date{
-    position: relative;
-    top:40px;
-    left:30px;
-    font-size:1.6rem;
-    color: white;
-  }
-  .digitalclock{
-    position:relative;
-    width: 200px;
-    height: 60px;
-    top:50px;
-    left:30px;
-    border-radius:10px;
-    background-color: rgba(231, 218, 226, 0.95);
-    border:2px solid black;
-  }
-
-  #digiclock
-  {
-    position:relative;
-    color: rgb(7, 15, 172);
-    text-align: center;
-    padding-top:5px;
-    font-size:2.5rem;
-    font-weight:900;
-  }
-
-  .user-input
-  {
-      width: 600px;
-      height: 150px;
-      position: relative;
-      top:-160px;
-      left:425px;
-      
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
   
-  label{
-    position: relative;
-    left: 30px;
-    text-align:left;
-    font-size: 1.6rem;
-    color: aliceblue;
-  }
+  <link rel="stylesheet"  href="style.css">
+
   
-  .subject{
-    top:10px;
-  }
-  .grade{
-    top:20px;
-  }
-  .duration{
-    top:30px;
-  }
-
-  input{
-    position:relative;
-    left: 205px;
-    top:-80px;
-    width: 300px;
-    height: 40px;
-    font-size:1.8rem ;
-    font-weight: bolder;
-    border-radius: 10px;
-    text-align: center;
-    color: rgb(9, 22, 209);
-  }
-  .button-set{
-    position:relative;
-    width:80px;
-    height: 40px;
-    top:-120px;
-    left:510px;
-    border-radius: 15px;
-    border:2px solid black;
-    font-size:1.25rem;
-    background-color: #C0C0C0;
-    cursor: pointer;
-  }
-  .schoollogo
-  {
-    position: relative;
-    width: 180px;
-    height: 110px;
-    top:-255px;
-    left:750px;
-    border-radius:5%;
-    background-image: url('athslogo.svg');
-  }
-
-  .clock{
-    position:relative;
-    width: 850px;
-    height: 250px;
-    left:-120px;
-    top:-165px;
-    border-radius:20px;
-    text-align: center;
-    padding-top: 90px;
-    font-size:6.875rem;
-    font-weight: bolder;
-    background-color: rgba(245, 240, 243, 0.95);
-  }
-
-  #counter
-  {
-    position: relative;
-    top:-50px;
-  }
-
-  .remaining-time
-  {
-    position: relative;
-    top:-65px;
-    left:0px;
-    font-size:2.8125rem;
-    font-style: italic;
-    font-weight: bolder;
-    color: rgb(172, 7, 7);
-    padding-right: 10px;
-    z-index: 4;
-  }
-  .button-start{
-    position:relative;
-    width:80px;
-    height: 40px;
-    top:-70px;
-    left: 250px;
-    border-radius: 15px;
-    border:2px solid black;
-    font-size:1.25rem;
-    background-color: #C0C0C0;
-    cursor: pointer;
-  }
-  .button-pause{
-    position:relative;
-    width:80px;
-    height: 40px;
-    top:-70px;
-    left:230px;
-    border-radius: 15px;
-    border:2px solid black;
-    font-size:1.25rem;
-    background-color: #C0C0C0;
-    cursor: pointer;
-  }
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exam Timer</title>
+</head>
+<body>
+  <div class="container">
+  <div class="title">
+    <h1>ATHS EXAM TIMER</h1>
+  </div>
   
-  .button-stop{
-    position:relative;
-    width:80px;
-    height: 40px;
-    top:-70px;
-    left:210px;
-    border-radius: 15px;
-    border:2px solid black;
-    font-size:1.25rem;
-    background-color: #C0C0C0;
-    cursor: pointer;
-  }
+<div class="currentdate">
+  <div class="day" id="day"></div>
+  <div class="date" id="current-date">date</div>
+  <div id="digiclock" class="digitalclock"></div>
+</div>
 
-.fullscreenicon {
-  position: relative;
-  width: 64px;
-  height: 64px;
-  background-image: url('newfullscreen.svg');
-  Top:-100px;
-  left:800px;
-  cursor: pointer;
-}
+<div class="user-input"> 
+  <div> 
+   <div><label class="subject">Subject:</label></div>
+   <div><label class="grade">Grade:</label></div>
+   <div><label class="duration">Duration(min):</label></div>
+   <div><input class="subject1" type="text"></div>
+   <div><input class="grade1" type="text"> </div>
+   <div> <input class="duration1" id= "duration" type="number"></div>
+   <div>
+    <button onclick="setDuration()" id="setBtn" class="button-set">Set</button>
+  </div>
+ </div>
 
-.owner-label{
-  position: relative;
-  top: -120px;
-  left: 20px;
-  font-size:1rem;
-  font-weight: bolder;
-  text-align: center;
-  color: rgba(247, 244, 244, 0.925);
-}
+<div class="schoollogo" >
+  <img src="athslogo.svg" alt="image">
+</div>
 
+<div class="clock">
+  <div class="remaining-time">Time Remaining</div>
+  <div class="counter" id="counter"></div>
+  <button onclick="setStart()" id="startBtn" class="button-start">Start</button>
+  <button onclick="setPause()" id="pauseBtn" class="button-pause">Pause</button>
+  <button onclick="setReset()" id="stopBtn" class="button-stop">Reset</button>
+</div>
+
+<div class="fullscreenicon" onclick="toggleFullscreen()">
+    <img src="newfullscreen.svg" alt="image">
+</div>
+
+<div class="owner-label"> &copy; Applied Engineering Dept, TBMEC</div>
+
+</div>
+
+  <script src="script.js">
+    
+  </script>
+</body>
+</html>
