@@ -1,62 +1,1781 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
-  <link rel="stylesheet"  href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS Exam Timer - Modern</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exam Timer</title>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 20px 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: relative;
+            min-height: 100px;
+        }
+
+        .header-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            padding-top: 10px;
+            animation: fadeInDown 0.6s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Date and Time Container */
+        .datetime-container {
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            animation: fadeInLeft 0.6s ease-out;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .date-display {
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .date-display:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .date-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .digital-time {
+            font-size: 1.6rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-top: 3px;
+        }
+
+        /* Analog Clock */
+        .analog-clock-container {
+            position: relative;
+            width: 90px;
+            height: 90px;
+        }
+
+        .analog-clock {
+            width: 90px;
+            height: 90px;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            position: relative;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .analog-clock:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+        }
+
+        .clock-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 7px;
+            height: 7px;
+            background: #fff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .hand {
+            position: absolute;
+            background: #fff;
+            transform-origin: bottom center;
+            bottom: 50%;
+            left: 50%;
+            border-radius: 10px;
+        }
+
+        .hour-hand {
+            width: 3px;
+            height: 22px;
+            margin-left: -1.5px;
+        }
+
+        .minute-hand {
+            width: 2.5px;
+            height: 30px;
+            margin-left: -1.25px;
+        }
+
+        .second-hand {
+            width: 2px;
+            height: 35px;
+            margin-left: -1px;
+            background: #f5576c;
+        }
+
+        /* Clock numbers */
+        .clock-number {
+            position: absolute;
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: bold;
+        }
+
+        .clock-number.twelve { top: 5px; left: 50%; transform: translateX(-50%); }
+        .clock-number.three { right: 5px; top: 50%; transform: translateY(-50%); }
+        .clock-number.six { bottom: 5px; left: 50%; transform: translateX(-50%); }
+        .clock-number.nine { left: 5px; top: 50%; transform: translateY(-50%); }
+
+        /* School Logo */
+        .school-logo {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            background: rgba(255,255,255,0.95);
+            padding: 15px 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: fadeInRight 0.6s ease-out;
+            transition: all 0.3s ease;
+        }
+
+        .school-logo:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.25);
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .logo-image {
+            height: 50px;
+            width: auto;
+            transition: transform 0.3s ease;
+            image-rendering: -webkit-optimize-contrast;
+            -webkit-font-smoothing: antialiased;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .school-logo:hover .logo-image {
+            transform: scale(1.05);
+        }
+
+        .school-text {
+            color: #333;
+            text-align: right;
+        }
+
+        .school-text-ar {
+            font-size: 1rem;
+            margin-bottom: 2px;
+            font-weight: 600;
+            color: #1a5490;
+        }
+
+        .school-text-en {
+            font-size: 0.9rem;
+            color: #3498db;
+            font-weight: 600;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Setup Form */
+        .setup-form {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            transition: all 0.5s ease;
+            opacity: 1;
+            max-height: 500px;
+            overflow: hidden;
+        }
+
+        .setup-form.hidden {
+            opacity: 0;
+            max-height: 0;
+            padding: 0 30px;
+            margin-bottom: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-label-icon {
+            font-size: 1.3rem;
+        }
+
+        .form-input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            color: #667eea;
+            pointer-events: none;
+        }
+
+        .form-input {
+            padding: 12px 15px 12px 45px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .form-input:focus {
+            outline: none;
+            background: #fff;
+            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+            transform: translateY(-2px);
+        }
+
+        .set-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .set-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Exam Info Display */
+        .exam-info {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 0;
+            margin-bottom: 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .exam-info.visible {
+            opacity: 1;
+            max-height: 300px;
+            padding: 30px 40px;
+            margin-bottom: 40px;
+        }
+
+        .info-section {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255,255,255,0.1);
+            padding: 15px 25px;
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+        .info-item:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+        }
+
+        .info-icon {
+            font-size: 2.5rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .info-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .edit-btn {
+            padding: 15px 30px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .edit-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .edit-icon {
+            font-size: 1.3rem;
+        }
+
+        /* Timer Display */
+        .timer-container {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .timer-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
+            animation: shimmer 3s infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .timer-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Flip Clock */
+        .flip-clock {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .flip-unit-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .flip-unit {
+            position: relative;
+            width: 120px;
+            height: 140px;
+            perspective: 1000px;
+        }
+
+        .flip-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            font-weight: bold;
+            color: #fff;
+            backface-visibility: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        /* Add pulse effect to seconds during countdown */
+        .timer-running .flip-unit-container:last-child .flip-card-face {
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .flip-card-face::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: rgba(0,0,0,0.4);
+            top: 50%;
+            left: 0;
+            z-index: 10;
+        }
+
+        .flip-card-face-front {
+            z-index: 2;
+        }
+
+        .flip-card-face-back {
+            transform: rotateX(180deg);
+        }
+
+        /* Flip animation */
+        .flip-unit.flip .flip-card {
+            animation: flipAnimation 0.6s ease-in-out;
+        }
+
+        @keyframes flipAnimation {
+            0% { 
+                transform: rotateX(0deg); 
+            }
+            50% { 
+                transform: rotateX(-90deg); 
+            }
+            100% { 
+                transform: rotateX(-180deg) rotateX(180deg); 
+            }
+        }
+
+        .time-label {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .time-separator {
+            font-size: 3rem;
+            color: #fff;
+            font-weight: bold;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.3; }
+        }
+
+        /* Control Buttons */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .control-btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .control-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .control-btn.start {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            color: white;
+        }
+
+        .control-btn.pause {
+            background: linear-gradient(135deg, #fc4a1a, #f7b733);
+            color: white;
+        }
+
+        .control-btn.reset {
+            background: linear-gradient(135deg, #eb3349, #f45c43);
+            color: white;
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Progress Bar Container */
+        .progress-container {
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-bar-wrapper {
+            width: 100%;
+            height: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            border-radius: 15px;
+            transition: width 1s linear, background 0.5s ease, box-shadow 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Color states based on percentage */
+        .progress-bar.green {
+            background: linear-gradient(90deg, #11998e, #38ef7d);
+            box-shadow: 0 0 15px rgba(56, 239, 125, 0.5);
+        }
+
+        .progress-bar.yellow {
+            background: linear-gradient(90deg, #f7b733, #ffd700);
+            box-shadow: 0 0 15px rgba(247, 183, 51, 0.5);
+        }
+
+        .progress-bar.orange {
+            background: linear-gradient(90deg, #fc4a1a, #f7b733);
+            box-shadow: 0 0 15px rgba(252, 74, 26, 0.5);
+        }
+
+        .progress-bar.red {
+            background: linear-gradient(90deg, #eb3349, #f45c43);
+            box-shadow: 0 0 15px rgba(235, 51, 73, 0.5);
+            animation: criticalPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes criticalPulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        /* Animated shine effect */
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 2s infinite;
+        }
+
+        .timer-running .progress-bar::before {
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -100%;
+            }
+            50%, 100% {
+                left: 100%;
+            }
+        }
+
+        /* Warning state for low time */
+        .timer-container.warning {
+            animation: warningPulse 1s infinite;
+        }
+
+        @keyframes warningPulse {
+            0%, 100% {
+                background: rgba(255,255,255,0.1);
+            }
+            50% {
+                background: rgba(255,0,0,0.2);
+            }
+        }
+
+        /* Notification Banner */
+        .notification-banner {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 50px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            z-index: 2000;
+            transition: top 0.5s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 3px solid;
+        }
+
+        .notification-banner.show {
+            top: 20px;
+        }
+
+        .notification-banner.warning {
+            border-color: #f7b733;
+            background: linear-gradient(135deg, rgba(252,74,26,0.95), rgba(247,183,51,0.95));
+            color: white;
+        }
+
+        .notification-banner.danger {
+            border-color: #f45c43;
+            background: linear-gradient(135deg, rgba(235,51,73,0.95), rgba(244,92,67,0.95));
+            color: white;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .notification-banner.success {
+            border-color: #38ef7d;
+            background: linear-gradient(135deg, rgba(17,153,142,0.95), rgba(56,239,125,0.95));
+            color: white;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(-50%) rotate(0deg); }
+            25% { transform: translateX(-50%) rotate(-5deg); }
+            75% { transform: translateX(-50%) rotate(5deg); }
+        }
+
+        .notification-icon {
+            font-size: 2.5rem;
+        }
+
+        .notification-content {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .notification-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .notification-message {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Fullscreen Button */
+        .fullscreen-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .fullscreen-btn:active {
+            transform: scale(0.95);
+        }
+
+        .fullscreen-icon {
+            font-size: 1.8rem;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Wake lock indicator */
+        .wake-lock-indicator {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background: rgba(56, 239, 125, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(56, 239, 125, 0.4);
+            border-radius: 25px;
+            padding: 8px 16px;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(56, 239, 125, 0.3);
+            z-index: 999;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .wake-lock-indicator.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: rgba(255,255,255,0.8);
+            font-size: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .datetime-container {
+                gap: 15px;
+            }
+
+            .date-display {
+                padding: 10px 16px;
+            }
+
+            .date-text {
+                font-size: 1rem;
+            }
+
+            .digital-time {
+                font-size: 1.5rem;
+            }
+
+            .analog-clock-container {
+                width: 85px;
+                height: 85px;
+            }
+
+            .analog-clock {
+                width: 85px;
+                height: 85px;
+            }
+
+            .school-logo {
+                padding: 12px 20px;
+            }
+
+            .logo-image {
+                height: 45px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 1.8rem;
+            }
+
+            .datetime-container {
+                position: static;
+                justify-content: center;
+                margin-top: 20px;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .date-display {
+                padding: 10px 18px;
+            }
+
+            .date-text {
+                font-size: 1rem;
+            }
+
+            .digital-time {
+                font-size: 1.4rem;
+            }
+
+            .analog-clock-container {
+                width: 80px;
+                height: 80px;
+            }
+
+            .analog-clock {
+                width: 80px;
+                height: 80px;
+            }
+
+            .school-logo {
+                position: static;
+                margin: 20px auto;
+                width: fit-content;
+            }
+
+            .logo-image {
+                height: 40px;
+            }
+
+            .fullscreen-btn {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .fullscreen-icon {
+                font-size: 1.5rem;
+            }
+
+            .wake-lock-indicator {
+                bottom: 80px;
+                right: 20px;
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+
+            .flip-unit {
+                width: 80px;
+                height: 100px;
+            }
+
+            .flip-card-face {
+                font-size: 2.5rem;
+            }
+
+            .time-separator {
+                font-size: 2rem;
+            }
+
+            .control-btn {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+
+            .info-section {
+                justify-content: center;
+            }
+
+            .info-item {
+                flex: 1 1 100%;
+            }
+
+            .exam-info {
+                justify-content: center;
+            }
+
+            /* Hide hourglass on mobile */
+            .progress-bar-wrapper {
+                height: 16px;
+            }
+
+            /* Adjust notification banner for mobile */
+            .notification-banner {
+                padding: 15px 25px;
+                max-width: 90%;
+            }
+
+            .notification-icon {
+                font-size: 2rem;
+            }
+
+            .notification-title {
+                font-size: 1.2rem;
+            }
+
+            .notification-message {
+                font-size: 0.9rem;
+            }
+        }
+            .notification-banner {
+                padding: 15px 25px;
+                max-width: 90%;
+            }
+
+            .notification-icon {
+                font-size: 2rem;
+            }
+
+            .notification-title {
+                font-size: 1.2rem;
+            }
+
+            .notification-message {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-  <div class="title">
-    <h1>ATS EXAM TIMER</h1>
-  </div>
-  
-<div class="currentdate">
-  <div class="day" id="day"></div>
-  <div class="date" id="current-date">date</div>
-  <div id="digiclock" class="digitalclock"></div>
-</div>
+    <!-- Header -->
+    <div class="header">
+        <h1 class="header-title">ATS Exam Timer</h1>
+        
+        <!-- Date and Time -->
+        <div class="datetime-container">
+            <div class="date-display">
+                <div class="date-text" id="currentDate">Thursday</div>
+                <div class="date-text" id="currentDateFull">20-11-2025</div>
+                <div class="digital-time" id="currentTime">00:00:00</div>
+            </div>
+            
+            <!-- Analog Clock -->
+            <div class="analog-clock-container">
+                <div class="analog-clock">
+                    <div class="clock-number twelve">12</div>
+                    <div class="clock-number three">3</div>
+                    <div class="clock-number six">6</div>
+                    <div class="clock-number nine">9</div>
+                    <div class="hand hour-hand" id="hourHand"></div>
+                    <div class="hand minute-hand" id="minuteHand"></div>
+                    <div class="hand second-hand" id="secondHand"></div>
+                    <div class="clock-center"></div>
+                </div>
+            </div>
+        </div>
 
-<div class="user-input"> 
-  <div> 
-   <div><label class="subject">Subject:</label></div>
-   <div><label class="grade">Grade:</label></div>
-   <div><label class="duration">Duration(min):</label></div>
-   <div><input class="subject1" type="text"></div>
-   <div><input class="grade1" type="text"> </div>
-   <div> <input class="duration1" id= "duration" type="number"></div>
-   <div>
-    <button onclick="setDuration()" id="setBtn" class="button-set">Set</button>
-  </div>
- </div>
+        <!-- School Logo -->
+        <div class="school-logo">
+            <img src="atsLogo.png" alt="ATS Logo" class="logo-image">
+            <div class="school-text">
+                <div class="school-text-ar">مدارس التكنولوجيا التطبيقية</div>
+                <div class="school-text-en">Applied Technology Schools</div>
+            </div>
+        </div>
+    </div>
 
-<div class="schoollogo" >
-  <img src="./images/atslogo1.jpeg" alt="image">
-</div>
+    <!-- Notification Banner -->
+    <div class="notification-banner" id="notificationBanner">
+        <div class="notification-icon" id="notificationIcon">⚠️</div>
+        <div class="notification-content">
+            <div class="notification-title" id="notificationTitle">Alert</div>
+            <div class="notification-message" id="notificationMessage">Time update</div>
+        </div>
+    </div>
 
-<div class="clock">
-  <div class="remaining-time">Time Remaining</div>
-  <div class="counter" id="counter"></div>
-  <button onclick="setStart()" id="startBtn" class="button-start">Start</button>
-  <button onclick="setPause()" id="pauseBtn" class="button-pause">Pause</button>
-  <button onclick="setReset()" id="stopBtn" class="button-stop">Reset</button>
-</div>
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Setup Form -->
+        <div class="setup-form" id="setupForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="form-label-icon">📚</span>
+                        Subject:
+                    </label>
+                    <div class="form-input-wrapper">
+                        <span class="input-icon">📚</span>
+                        <input type="text" class="form-input" id="subject" placeholder="e.g., Mathematics">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="form-label-icon">🎓</span>
+                        Grade:
+                    </label>
+                    <div class="form-input-wrapper">
+                        <span class="input-icon">🎓</span>
+                        <input type="text" class="form-input" id="grade" placeholder="e.g., Grade 10">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <span class="form-label-icon">⏱️</span>
+                        Duration (minutes):
+                    </label>
+                    <div class="form-input-wrapper">
+                        <span class="input-icon">⏱️</span>
+                        <input type="number" class="form-input" id="duration" placeholder="e.g., 60" min="1" value="2">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="set-btn" onclick="setTimer()">✓ Set Timer</button>
+                </div>
+            </div>
+        </div>
 
-<div class="fullscreenicon" onclick="toggleFullscreen()">
-    <img src="./images/newfullscreen.svg" alt="image">
-</div>
+        <!-- Exam Info Display (Hidden by default) -->
+        <div class="exam-info" id="examInfo">
+            <div class="info-section">
+                <div class="info-item">
+                    <div class="info-icon">📚</div>
+                    <div class="info-content">
+                        <div class="info-label">Subject</div>
+                        <div class="info-value" id="displaySubject">-</div>
+                    </div>
+                </div>
 
-<div class="owner-label"> &copy; Applied Engineering Dept, TBMEC</div>
+                <div class="info-item">
+                    <div class="info-icon">🎓</div>
+                    <div class="info-content">
+                        <div class="info-label">Grade</div>
+                        <div class="info-value" id="displayGrade">-</div>
+                    </div>
+                </div>
 
-</div>
+                <div class="info-item">
+                    <div class="info-icon">⏱️</div>
+                    <div class="info-content">
+                        <div class="info-label">Duration</div>
+                        <div class="info-value" id="displayDuration">-</div>
+                    </div>
+                </div>
+            </div>
 
-  <script src="script.js">
-    
-  </script>
+            <button class="edit-btn" onclick="editExamInfo()">
+                <span class="edit-icon">✏️</span>
+                Edit
+            </button>
+        </div>
+
+        <!-- Timer Display -->
+        <div class="timer-container" id="timerContainer">
+            <h2 class="timer-title">Time Remaining</h2>
+            
+            <!-- Flip Clock Display -->
+            <div class="flip-clock">
+                <div class="flip-unit-container">
+                    <div class="flip-unit" id="hoursFlip">
+                        <div class="flip-card">
+                            <div class="flip-card-face flip-card-face-front">
+                                <span id="hoursDisplay">00</span>
+                            </div>
+                            <div class="flip-card-face flip-card-face-back">
+                                <span id="hoursDisplayBack">00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="time-label">HOURS</div>
+                </div>
+                
+                <span class="time-separator">:</span>
+                
+                <div class="flip-unit-container">
+                    <div class="flip-unit" id="minutesFlip">
+                        <div class="flip-card">
+                            <div class="flip-card-face flip-card-face-front">
+                                <span id="minutesDisplay">00</span>
+                            </div>
+                            <div class="flip-card-face flip-card-face-back">
+                                <span id="minutesDisplayBack">00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="time-label">MINUTES</div>
+                </div>
+                
+                <span class="time-separator">:</span>
+                
+                <div class="flip-unit-container">
+                    <div class="flip-unit" id="secondsFlip">
+                        <div class="flip-card">
+                            <div class="flip-card-face flip-card-face-front">
+                                <span id="secondsDisplay">00</span>
+                            </div>
+                            <div class="flip-card-face flip-card-face-back">
+                                <span id="secondsDisplayBack">00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="time-label">SECONDS</div>
+                </div>
+            </div>
+
+            <!-- Control Buttons -->
+            <div class="controls">
+                <button class="control-btn start" id="startBtn" onclick="startTimer()">Start</button>
+                <button class="control-btn pause" id="pauseBtn" onclick="pauseTimer()" disabled>Pause</button>
+                <button class="control-btn reset" id="resetBtn" onclick="resetTimer()">Reset</button>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar-wrapper">
+                    <div class="progress-bar green" id="progressBar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            © Applied Engineering Dept, TBMEC
+        </div>
+    </div>
+
+    <!-- Fullscreen Button -->
+    <button class="fullscreen-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen (Press F)">
+        <span class="fullscreen-icon" id="fullscreenIcon">⛶</span>
+    </button>
+
+    <!-- Wake Lock Indicator -->
+    <div class="wake-lock-indicator" id="wakeLockIndicator" title="Screen will stay awake during timer">
+        <span>☀️</span>
+        <span>Screen Stay Awake</span>
+    </div>
+
+    <script>
+        let timerInterval = null;
+        let totalSeconds = 0;
+        let initialSeconds = 0; // Store initial duration for hourglass calculation
+        let lastHours = '';
+        let lastMinutes = '';
+        let lastSeconds = '';
+        let notificationShown = {
+            thirtyMin: false,
+            tenMin: false,
+            timeUp: false
+        };
+        let wakeLock = null; // For keeping screen awake
+
+        // Update horizontal progress bar based on elapsed time
+        function updateProgressBar() {
+            if (initialSeconds === 0) return;
+            
+            const progressBar = document.getElementById('progressBar');
+            
+            // Calculate percentage of time ELAPSED (not remaining)
+            const percentElapsed = ((initialSeconds - totalSeconds) / initialSeconds) * 100;
+            
+            // Update progress bar width (goes from 0 to 100)
+            progressBar.style.width = percentElapsed + '%';
+            
+            // Change color based on percentage elapsed
+            // Remove all color classes first
+            progressBar.classList.remove('green', 'yellow', 'orange', 'red');
+            
+            // Add appropriate color class based on percentage
+            if (percentElapsed < 25) {
+                progressBar.classList.add('green');
+            } else if (percentElapsed < 50) {
+                progressBar.classList.add('yellow');
+            } else if (percentElapsed < 75) {
+                progressBar.classList.add('orange');
+            } else {
+                progressBar.classList.add('red');
+            }
+        }
+
+        // Show notification banner
+        function showNotification(title, message, type, icon) {
+            const banner = document.getElementById('notificationBanner');
+            const titleEl = document.getElementById('notificationTitle');
+            const messageEl = document.getElementById('notificationMessage');
+            const iconEl = document.getElementById('notificationIcon');
+            
+            // Remove previous type classes
+            banner.classList.remove('warning', 'danger', 'success');
+            
+            // Set content
+            titleEl.textContent = title;
+            messageEl.textContent = message;
+            iconEl.textContent = icon;
+            
+            // Add type class
+            if (type) {
+                banner.classList.add(type);
+            }
+            
+            // Show banner
+            banner.classList.add('show');
+            
+            // Hide after 4 seconds
+            setTimeout(() => {
+                banner.classList.remove('show');
+            }, 4000);
+        }
+
+        // Check for time milestones and show notifications
+        function checkTimeNotifications() {
+            const minutes = Math.floor(totalSeconds / 60);
+            
+            // 30 minutes remaining
+            if (minutes === 30 && totalSeconds % 60 === 0 && !notificationShown.thirtyMin) {
+                showNotification('30 Minutes Remaining', 'You have half an hour left', 'warning', '⏰');
+                notificationShown.thirtyMin = true;
+            }
+            
+            // 10 minutes remaining
+            if (minutes === 10 && totalSeconds % 60 === 0 && !notificationShown.tenMin) {
+                showNotification('10 Minutes Left!', 'Please start wrapping up', 'warning', '⚠️');
+                notificationShown.tenMin = true;
+            }
+            
+            // Time's up
+            if (totalSeconds === 0 && !notificationShown.timeUp) {
+                showNotification('Time\'s Up!', 'The exam has ended', 'danger', '🔔');
+                notificationShown.timeUp = true;
+            }
+        }
+
+        // Update current date and time
+        function updateDateTime() {
+            const now = new Date();
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const day = days[now.getDay()];
+            const date = now.toLocaleDateString('en-GB').replace(/\//g, '-');
+            const time = now.toLocaleTimeString('en-US', { hour12: false });
+            
+            document.getElementById('currentDate').textContent = day;
+            document.getElementById('currentDateFull').textContent = date;
+            document.getElementById('currentTime').textContent = time;
+            
+            // Update analog clock
+            updateAnalogClock(now);
+        }
+
+        // Update analog clock hands
+        function updateAnalogClock(now) {
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            
+            const hourDeg = (hours % 12) * 30 + minutes * 0.5;
+            const minuteDeg = minutes * 6 + seconds * 0.1;
+            const secondDeg = seconds * 6;
+            
+            document.getElementById('hourHand').style.transform = `rotate(${hourDeg}deg)`;
+            document.getElementById('minuteHand').style.transform = `rotate(${minuteDeg}deg)`;
+            document.getElementById('secondHand').style.transform = `rotate(${secondDeg}deg)`;
+        }
+
+        // Flip animation for timer digits
+        function flipCard(unit, newValue, oldValue) {
+            const frontDisplay = document.getElementById(unit + 'Display');
+            const backDisplay = document.getElementById(unit + 'DisplayBack');
+            
+            // Update display values
+            frontDisplay.textContent = newValue;
+            backDisplay.textContent = newValue;
+            
+            // Only animate if value actually changed
+            if (newValue !== oldValue) {
+                const flipUnit = document.getElementById(unit + 'Flip');
+                
+                // Remove any existing flip class
+                flipUnit.classList.remove('flip');
+                
+                // Force reflow to restart animation
+                void flipUnit.offsetWidth;
+                
+                // Add flip class to trigger animation
+                flipUnit.classList.add('flip');
+                
+                // Remove flip class after animation completes
+                setTimeout(() => {
+                    flipUnit.classList.remove('flip');
+                }, 600);
+            }
+        }
+
+        // Update timer display with flip animation
+        function updateDisplay() {
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            
+            const hoursStr = String(hours).padStart(2, '0');
+            const minutesStr = String(minutes).padStart(2, '0');
+            const secondsStr = String(seconds).padStart(2, '0');
+            
+            // Update displays with flip animation
+            flipCard('hours', hoursStr, lastHours);
+            flipCard('minutes', minutesStr, lastMinutes);
+            flipCard('seconds', secondsStr, lastSeconds);
+            
+            // Store current values for next comparison
+            lastHours = hoursStr;
+            lastMinutes = minutesStr;
+            lastSeconds = secondsStr;
+            
+            // Update progress bar
+            updateProgressBar();
+            
+            // Check for time milestones
+            if (timerInterval) {
+                checkTimeNotifications();
+            }
+            
+            // Check for low time warning (last 10 seconds)
+            const timerContainer = document.getElementById('timerContainer');
+            if (totalSeconds <= 10 && totalSeconds > 0) {
+                timerContainer.classList.add('warning');
+            } else {
+                timerContainer.classList.remove('warning');
+            }
+        }
+
+        // Set timer from form input
+        function setTimer() {
+            const duration = parseInt(document.getElementById('duration').value);
+            const subject = document.getElementById('subject').value || 'Not specified';
+            const grade = document.getElementById('grade').value || 'Not specified';
+            
+            if (duration && duration > 0) {
+                // Stop any running timer first
+                pauseTimer();
+                
+                // Set total seconds and store initial duration
+                totalSeconds = duration * 60;
+                initialSeconds = totalSeconds;
+                
+                // Reset notification flags
+                notificationShown.thirtyMin = false;
+                notificationShown.tenMin = false;
+                notificationShown.timeUp = false;
+                
+                // Reset stored values to force flip animation
+                lastHours = '';
+                lastMinutes = '';
+                lastSeconds = '';
+                
+                // Update display
+                updateDisplay();
+                
+                // Update exam info display
+                document.getElementById('displaySubject').textContent = subject;
+                document.getElementById('displayGrade').textContent = grade;
+                document.getElementById('displayDuration').textContent = duration + ' min';
+                
+                // Hide form and show exam info
+                document.getElementById('setupForm').classList.add('hidden');
+                document.getElementById('examInfo').classList.add('visible');
+                
+                // Show success notification
+                showNotification('Timer Set!', `${duration} minutes - ${subject}`, 'success', '✅');
+                
+                // Show confirmation message
+                console.log(`Timer set: ${duration} min - ${subject} (${grade})`);
+                
+                // Visual feedback on timer container
+                const timerContainer = document.getElementById('timerContainer');
+                timerContainer.style.transform = 'scale(1.02)';
+                setTimeout(() => {
+                    timerContainer.style.transform = 'scale(1)';
+                }, 300);
+                
+            } else {
+                alert('Please enter a valid duration in minutes');
+            }
+        }
+
+        // Edit exam info - show form again
+        function editExamInfo() {
+            // Pause timer if running
+            pauseTimer();
+            
+            // Reset notification flags
+            notificationShown.thirtyMin = false;
+            notificationShown.tenMin = false;
+            notificationShown.timeUp = false;
+            
+            // Show form and hide exam info
+            document.getElementById('setupForm').classList.remove('hidden');
+            document.getElementById('examInfo').classList.remove('visible');
+        }
+
+        // Start timer
+        function startTimer() {
+            if (totalSeconds <= 0) {
+                alert('Please set a duration first!');
+                return;
+            }
+            
+            if (!timerInterval) {
+                console.log('Starting timer with', totalSeconds, 'seconds remaining');
+                
+                // Update button states
+                document.getElementById('startBtn').disabled = true;
+                document.getElementById('pauseBtn').disabled = false;
+                
+                // Add running class for visual feedback
+                document.getElementById('timerContainer').classList.add('timer-running');
+                
+                // Request wake lock to keep screen awake
+                requestWakeLock();
+                
+                // Start countdown interval
+                timerInterval = setInterval(() => {
+                    if (totalSeconds > 0) {
+                        totalSeconds--;
+                        updateDisplay();
+                    } else {
+                        // Timer finished
+                        pauseTimer();
+                        document.getElementById('timerContainer').classList.remove('warning');
+                        alert('Time\'s up! Exam has ended.');
+                        playEndSound();
+                    }
+                }, 1000);
+            }
+        }
+
+        // Pause timer
+        function pauseTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                
+                // Update button states
+                document.getElementById('startBtn').disabled = false;
+                document.getElementById('pauseBtn').disabled = true;
+                
+                // Remove running class
+                document.getElementById('timerContainer').classList.remove('timer-running');
+                
+                // Release wake lock when timer stops
+                releaseWakeLock();
+                
+                console.log('Timer paused at', totalSeconds, 'seconds');
+            }
+        }
+
+        // Reset timer
+        function resetTimer() {
+            pauseTimer();
+            
+            const duration = parseInt(document.getElementById('duration').value);
+            if (duration && duration > 0) {
+                totalSeconds = duration * 60;
+                initialSeconds = totalSeconds;
+            } else {
+                totalSeconds = 0;
+                initialSeconds = 0;
+            }
+            
+            // Reset notification flags
+            notificationShown.thirtyMin = false;
+            notificationShown.tenMin = false;
+            notificationShown.timeUp = false;
+            
+            // Reset visual state
+            document.getElementById('timerContainer').classList.remove('timer-running');
+            document.getElementById('timerContainer').classList.remove('warning');
+            
+            // Reset stored values to force flip animation
+            lastHours = '';
+            lastMinutes = '';
+            lastSeconds = '';
+            
+            updateDisplay();
+            
+            console.log('Timer reset to', totalSeconds, 'seconds');
+        }
+
+        // Play sound when timer ends
+        function playEndSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Play 3 beeps
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        const oscillator = audioContext.createOscillator();
+                        const gainNode = audioContext.createGain();
+                        
+                        oscillator.connect(gainNode);
+                        gainNode.connect(audioContext.destination);
+                        
+                        oscillator.frequency.value = 800;
+                        oscillator.type = 'sine';
+                        
+                        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                        
+                        oscillator.start();
+                        oscillator.stop(audioContext.currentTime + 0.3);
+                    }, i * 400);
+                }
+            } catch (err) {
+                console.log('Audio playback failed:', err);
+            }
+        }
+
+        // Request wake lock to keep screen awake
+        async function requestWakeLock() {
+            try {
+                if ('wakeLock' in navigator) {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                    console.log('Wake Lock activated - screen will stay awake');
+                    
+                    // Show indicator
+                    document.getElementById('wakeLockIndicator').classList.add('active');
+                    
+                    // Listen for wake lock release
+                    wakeLock.addEventListener('release', () => {
+                        console.log('Wake Lock released');
+                        document.getElementById('wakeLockIndicator').classList.remove('active');
+                    });
+                } else {
+                    console.log('Wake Lock API not supported on this device');
+                }
+            } catch (err) {
+                console.log('Wake Lock request failed:', err);
+            }
+        }
+
+        // Release wake lock
+        async function releaseWakeLock() {
+            if (wakeLock !== null) {
+                try {
+                    await wakeLock.release();
+                    wakeLock = null;
+                    console.log('Wake Lock released manually');
+                } catch (err) {
+                    console.log('Wake Lock release failed:', err);
+                }
+            }
+        }
+
+        // Toggle fullscreen mode
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                // Enter fullscreen
+                document.documentElement.requestFullscreen().then(() => {
+                    document.getElementById('fullscreenIcon').textContent = '⛶';
+                    console.log('Entered fullscreen mode');
+                }).catch(err => {
+                    console.log('Fullscreen request failed:', err);
+                    alert('Fullscreen not supported or blocked by browser');
+                });
+            } else {
+                // Exit fullscreen
+                if (document.exitFullscreen) {
+                    document.exitFullscreen().then(() => {
+                        document.getElementById('fullscreenIcon').textContent = '⛶';
+                        console.log('Exited fullscreen mode');
+                    });
+                }
+            }
+        }
+
+        // Handle fullscreen change events
+        document.addEventListener('fullscreenchange', () => {
+            const icon = document.getElementById('fullscreenIcon');
+            if (document.fullscreenElement) {
+                icon.textContent = '⛶'; // Exit fullscreen icon
+            } else {
+                icon.textContent = '⛶'; // Enter fullscreen icon
+            }
+        });
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            // Update date/time immediately and then every second
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            
+            // Initialize display
+            updateDisplay();
+            
+            console.log('Exam Timer initialized');
+            console.log('Keyboard shortcuts:');
+            console.log('  - Space: Start/Pause timer');
+            console.log('  - Ctrl+R: Reset timer');
+            console.log('  - F: Toggle fullscreen');
+            
+            // Check wake lock support
+            if ('wakeLock' in navigator) {
+                console.log('✓ Screen Wake Lock supported - screen will stay awake during timer');
+            } else {
+                console.log('⚠ Screen Wake Lock not supported on this device');
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && !e.target.matches('input')) {
+                e.preventDefault();
+                if (document.getElementById('startBtn').disabled) {
+                    pauseTimer();
+                } else {
+                    startTimer();
+                }
+            } else if (e.code === 'KeyR' && e.ctrlKey) {
+                e.preventDefault();
+                resetTimer();
+            } else if (e.code === 'KeyF' && !e.ctrlKey && !e.altKey && !e.metaKey && !e.target.matches('input')) {
+                e.preventDefault();
+                toggleFullscreen();
+            }
+        });
+
+        // Handle visibility change to manage wake lock
+        document.addEventListener('visibilitychange', async () => {
+            if (document.visibilityState === 'visible' && timerInterval && wakeLock === null) {
+                // Re-request wake lock when page becomes visible again
+                await requestWakeLock();
+            }
+        });
+    </script>
 </body>
 </html>
